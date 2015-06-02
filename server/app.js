@@ -70,7 +70,7 @@ router.get('/', function(req, res) {
 
 
 router.post('/level', function(req,res){
-    var query = Game.find();
+    //var query = Game.find();
 
     //var geo = new Array(req.body.latitude, req.body.longitude);
     //var lonLat = { $geometry :  { type : "Point" , coordinates : geo } ,$maxDistance: req.body.maxdistance};
