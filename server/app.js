@@ -74,14 +74,21 @@ router.post('/level', function(req,res){
 
     //var geo = new Array(req.body.latitude, req.body.longitude);
     //var lonLat = { $geometry :  { type : "Point" , coordinates : geo } ,$maxDistance: req.body.maxdistance};
+    Game.random(parseInt(req.body.level),function(err, quote) {
+        res.json(quote);
+        //req.user.lastQuote = quote._id;
+        //req.user.save();
+      });
 
-
-    query.findOne().exec(function(err,venues){
+ 
+    /*query.findOne({'game.level':2}).exec(function(err,venues){
         if (err)
             res.send(500, 'Error #101: '+err);
         else 
             res.json(venues);
-        }); 
+        }); */
+
+    
     
     //res.json({message:'okay'});
 
