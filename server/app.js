@@ -32,7 +32,7 @@ app.use(bodyParser.json());
 //var port = process.env.PORT || 8888;        // set our port
 //var ipaddr = process.env.OPENSHIFT_NODEJS_IP;
 //var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 9000;
-var port = process.env.PORT || 1337;
+var port = 80
 
 // ROUTES FOR OUR API
 // =============================================================================
