@@ -16,7 +16,7 @@ var application_root = __dirname,
 // Database
 
 //mongoose.connect('mongodb://root:inputboxxp@proximus.modulusmongo.net:27017/aton5yHy');
-mongoose.connect('mongodb://127.0.0.1:27017');
+mongoose.connect('mongodb://127.0.0.1:27017/local');
 //Base setup
 
 var Game = require('./model/game.js');
