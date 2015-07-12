@@ -10,7 +10,7 @@ gameSchema.statics.random = function(level,callback) {
                 return callback(err);
             }
             var rand = Math.floor(Math.random() * count);
-            console.log('count ' + count);
+            //console.log('count ' + count);
             this.findOne({'game.level':level}).skip(rand).exec(callback);
         }.bind(this));
     };
