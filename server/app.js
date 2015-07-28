@@ -36,7 +36,7 @@ var Ranking = require('./model/ranking.js');
 
 // Config
 
-app.use(function(req, res, next) {
+/*app.use(function(req, res, next) {
     var data = '';
     req.setEncoding('utf8');
     req.on('data', function(chunk) { 
@@ -46,7 +46,7 @@ app.use(function(req, res, next) {
         req.rawBody = data;
         next();
     });
-});
+});*/
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
