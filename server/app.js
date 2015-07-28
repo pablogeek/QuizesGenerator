@@ -13,7 +13,7 @@ var application_root = __dirname,
     mongoose = require('mongoose'),
     bodyParser = require('body-parser');
 
-var ursa = require("ursa");
+/*var ursa = require("ursa");
 
 var keySizeBits = 1024;
 var keyPair = ursa.generatePrivateKey(keySizeBits, 65537);
@@ -22,7 +22,7 @@ var pubPem = keyPair.toPublicPem('base64');
 
 var pub = ursa.createPublicKey(pubPem, 'base64');
 
-console.log('first ' +keyPair);
+console.log('first ' +keyPair);*/
 
 // Database
 
@@ -63,7 +63,7 @@ var router = express.Router();              // get an instance of the express Ro
 // test route to make sure everything is working (accessed at GET http://localhost:8080/api)
 router.get('/', function(req, res) {
 
-    var clearText = "Hola me llamo Pablo"
+    /*var clearText = "Hola me llamo Pablo"
     var bigText = "";
     for(var i = 0; i < 100; i++){
         bigText += i +" " + clearText + "\n"; 
@@ -77,7 +77,7 @@ router.get('/', function(req, res) {
     //console.log(encrypted);
 
     var decrypted = decrypt(encrypted, keySizeBits/8);
-    console.log(decrypted);
+    console.log(decrypted);*/
 
     res.json({ message: 'Hey! welcome to quizs!'});   
 });
@@ -107,7 +107,7 @@ router.get('/', function(req, res) {
 
 });*/
 
-router.get('/ranking', function(req,res){
+/*router.get('/ranking', function(req,res){
     var query = Ranking.find();
     query.sort([['points', 'descending']]);
     query.limit(100);
@@ -144,7 +144,7 @@ router.post('/ranking', function(req,res){
 
     });
 
-});
+});*/
 
 router.post('/level', function(req,res){
     //var query = Game.find();
@@ -227,6 +227,10 @@ function decrypt(encryptedString, keySizeBytes){
 
 
 // more routes for our API will happen here
+
+app.use(express.static(path.join(__dirname, 'public')));
+//app.use(express.static('/home/myName/allMyMedia/'));
+
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
