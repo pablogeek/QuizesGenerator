@@ -2,8 +2,7 @@ var mongoose     = require('mongoose');
 var Schema       = mongoose.Schema;
 
 var gameSchema = new Schema({
-	playerName:  String,
-	points: Number
+	
 });
 
 gameSchema.statics.random = function(level,callback) {
