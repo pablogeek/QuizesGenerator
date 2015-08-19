@@ -39,7 +39,7 @@ var Ranking = require('./model/ranking.js');
 /*app.use(function(req, res, next) {
     var data = '';
     req.setEncoding('utf8');
-    req.on('data', function(chunk) { 
+    req.on('data', function(chunk) {
         data += chunk;
     });
     req.on('end', function() {
@@ -54,7 +54,9 @@ app.use(bodyParser.json());
 //var port = process.env.PORT || 8888;        // set our port
 //var ipaddr = process.env.OPENSHIFT_NODEJS_IP;
 //var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 9000;
-var port = 3030
+
+//var port = 80
+var port = 8001;
 
 // ROUTES FOR OUR API
 // =============================================================================
@@ -66,7 +68,7 @@ router.get('/', function(req, res) {
     /*var clearText = "Hola me llamo Pablo"
     var bigText = "";
     for(var i = 0; i < 100; i++){
-        bigText += i +" " + clearText + "\n"; 
+        bigText += i +" " + clearText + "\n";
     }
 
     //var keySizeBits = 1024;
@@ -79,7 +81,7 @@ router.get('/', function(req, res) {
     var decrypted = decrypt(encrypted, keySizeBits/8);
     console.log(decrypted);*/
 
-    res.json({ message: 'Hey! welcome to quizs!'});   
+    res.json({ message: 'Hey! welcome to quizs!'});
 });
 
 //create alerts
@@ -88,7 +90,7 @@ router.get('/', function(req, res) {
     console.log('call createalert');
 
     var petAlert = new PetAlert();
-    
+
 
     var geoParametter = new Array(req.body.latitude, req.body.longitude);
     petAlert.geo = geoParametter;
@@ -120,7 +122,7 @@ router.get('/', function(req, res) {
     });
     //query.find().sort([['points', 'descending']]).all(function (posts) {
         // do something with the array of posts
-        
+
     //});
 
 
@@ -131,7 +133,7 @@ router.post('/ranking', function(req,res){
     var parseBody = JSON.parse(req.rawBody);
     var points = new Ranking(parseBody);
     console.log(points.playerName);
-    
+
 
     points.save(function(err) {
         if (err){
@@ -157,16 +159,16 @@ router.post('/level', function(req,res){
         //req.user.save();
       });
 
- 
+
     /*query.findOne({'game.level':2}).exec(function(err,venues){
         if (err)
             res.send(500, 'Error #101: '+err);
-        else 
+        else
             res.json(venues);
         }); */
 
-    
-    
+
+
     //res.json({message:'okay'});
 
 
@@ -205,8 +207,8 @@ function decrypt(encryptedString, keySizeBytes){
     var encryptedBuffer = new Buffer(encryptedString, 'base64');
     var decryptedBuffers = [];
 
-    //if the clear text was encrypted with a key of size N, the encrypted 
-    //result is a string formed by the concatenation of strings of N bytes long, 
+    //if the clear text was encrypted with a key of size N, the encrypted
+    //result is a string formed by the concatenation of strings of N bytes long,
     //so we can find out how many substrings there are by diving the final result
     //size per N
     var totalBuffers = encryptedBuffer.length / keySizeBytes;
@@ -229,6 +231,7 @@ function decrypt(encryptedString, keySizeBytes){
 // more routes for our API will happen here
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '..', 'www')));
 //app.use(express.static('/home/myName/allMyMedia/'));
 
 
