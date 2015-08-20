@@ -76,7 +76,23 @@ function previewfile(file) {
       var contents = reader.result;
       var lines = contents.split('\n');
 
-        holder.innerHTML += '<p>Content ' + lines;
+        holder.innerHTML += '<p>Content </p>';
+        var imagesQuiz = Array();
+        var namesQuiz = Array();
+        for (var line in lines) {
+          var lineString = lines[line];
+          holder.innerHTML += '<p>' + lineString + '</p>';
+          var lineArray = lineString.split('>');
+          imagesQuiz.push(lineArray[0]);
+          namesQuiz.push(lineArray[1]);
+          var resultRandom = getRandomInt(0,5);
+          var Result = {
+            resultText : lineArray[1],
+            resultValue: resultRandom
+          }
+
+          holder.innerHTML += '<p>' + Result.resultText + '</p>';
+        }
 
 
 
@@ -89,20 +105,28 @@ function previewfile(file) {
     };
   reader.onloadend = function(evt) {
     if (evt.target.readyState == FileReader.DONE) { // DONE == 2
-      holder.innerHTML += '<p>Content ' + evt.target.result;
+      //holder.innerHTML += '<p>Content ' + evt.target.result;
       /*document.getElementById('byte_content').textContent = evt.target.result;
       document.getElementById('byte_range').textContent =
         ['Read bytes: ', start + 1, ' - ', stop + 1,
          ' of ', file.size, ' byte file'].join('');*/
        }
     };
-    var blob = file.slice(0, 10 + 1);
-    reader.readAsBinaryString(blob);
+    //var blob = file.slice(0, 30 + 1);
+    reader.readAsBinaryString(file);
     //reader.readAsDataURL(file);
   /*}  else {
     holder.innerHTML += '<p>Uploaded ' + file.name + ' ' + (file.size ? (file.size/1024|0) + 'K' : '');
     console.log(file);
   }*/
+}
+
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function generateJson(){
+
 }
 
 function readfiles(files) {
