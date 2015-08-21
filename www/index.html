@@ -79,24 +79,49 @@ function previewfile(file) {
         holder.innerHTML += '<p>Content </p>';
         var imagesQuiz = Array();
         var namesQuiz = Array();
-        for (var line in lines) {
+        var resultsQuizs = Array();
+        var correctAnswer = 0;
+        var quizs = Array();
+        for (var line = 0 ; line < lines.length; line++) {
           var lineString = lines[line];
-          holder.innerHTML += '<p>' + lineString + '</p>';
+          //holder.innerHTML += '<p>' + lineString + '</p>';
           var lineArray = lineString.split('>');
           imagesQuiz.push(lineArray[0]);
           namesQuiz.push(lineArray[1]);
-          var resultRandom = getRandomInt(0,5);
+          if(correctAnswer == 0){
+            correctAnswer = getRandomInt(0,5) + 1;
+          }
           var Result = {
             resultText : lineArray[1],
-            resultValue: resultRandom
+            resultValue: correctAnswer
+          }
+          resultsQuizs.push(Result);
+
+          var Answers = {
+            results : resultsQuizs,
+            correctAnswer : correctAnswer,
+            imageURL : lineArray[0]
           }
 
-          holder.innerHTML += '<p>' + Result.resultText + '</p>';
+          var Quiz = {
+            answers: Answers
+          }
+          quizs.push(Quiz);
+          //holder.innerHTML += '<p>' + JSON.stringify(Quiz) + '</p>';
+
         }
 
+        var Game = {
+          quizs : quizs,
+          level : 1,
+          local : false
+        }
 
+        var WrapGame = {
+          game : Game
+        }
 
-
+        holder.innerHTML += '<p>' + JSON.stringify(WrapGame) + '</p>';
 
       /*var image = new Image();
       image.src = event.target.result;
