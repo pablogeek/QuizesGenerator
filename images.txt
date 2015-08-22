@@ -1,2 +1,8 @@
-image.png>yo
-image2.png>me
+Pablo,Salva,Antonio,Maria,Pepe,Alberto,Otro,Nombre2,Nombre1,Nombre3,Nombre4,Nombre5,Nombre7,Nombre8,Nombre9,Nombre10,Nombre11
+-
+image.png>Pablo
+image2.png>Christiano
+image3.png>Messi
+image4.png>Salva
+image5.png>Maria
+image6.png>Alberto

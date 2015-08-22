@@ -22,6 +22,7 @@ progress:after { content: '%'; }
 .hidden { display: none !important;}
 </style>
 <article>
+  Level: <input type="text" id="txtLevel" value="1" />
   <div id="holder">
   </div>
 
@@ -34,6 +35,8 @@ progress:after { content: '%'; }
   <p>Upload progress: <progress id="uploadprogress" min="0" max="100" value="0">0</progress></p>
 </article>
 <script>
+var namesGame = Array();
+
 var holder = document.getElementById('holder'),
     tests = {
       filereader: typeof FileReader != 'undefined',
@@ -67,6 +70,11 @@ var holder = document.getElementById('holder'),
   }
 });
 
+Array.prototype.extend = function (other_array) {
+    /* you should include a test to check whether other_array really is an array */
+    other_array.forEach(function(v) {this.push(v)}, this);
+}
+
 function previewfile(file) {
   //if (tests.filereader === true && acceptedTypes[file.type] === true) {
     var reader = new FileReader();
@@ -79,41 +87,53 @@ function previewfile(file) {
         holder.innerHTML += '<p>Content </p>';
         var imagesQuiz = Array();
         var namesQuiz = Array();
-        var resultsQuizs = Array();
+
+        var lineNames = lines[0];
+        namesGame = lineNames.split(',');
+
         var correctAnswer = 0;
         var quizs = Array();
-        for (var line = 0 ; line < lines.length; line++) {
+        var line = 2;
+        for (; line < lines.length-1; line++) {
+
           var lineString = lines[line];
-          //holder.innerHTML += '<p>' + lineString + '</p>';
-          var lineArray = lineString.split('>');
-          imagesQuiz.push(lineArray[0]);
-          namesQuiz.push(lineArray[1]);
-          if(correctAnswer == 0){
-            correctAnswer = getRandomInt(0,5) + 1;
-          }
-          var Result = {
-            resultText : lineArray[1],
-            resultValue: correctAnswer
-          }
-          resultsQuizs.push(Result);
+          if(lineString != '-'){
+            var resultsQuizs = Array();
+            //holder.innerHTML += '<p>' + lineString + '</p>';
+            var lineArray = lineString.split('>');
+            imagesQuiz.push(lineArray[0]);
+            namesQuiz.push(lineArray[1]);
+            if(correctAnswer == 0){
+              correctAnswer = getRandomInt(0,5) + 1;
+            }
+            var Result = {
+              resultText : lineArray[1],
+              resultValue: correctAnswer
+            }
 
-          var Answers = {
-            results : resultsQuizs,
-            correctAnswer : correctAnswer,
-            imageURL : lineArray[0]
-          }
+            var restOfResults = generate5Results(correctAnswer);
+            resultsQuizs.push(Result);
+            resultsQuizs.extend(restOfResults);
 
-          var Quiz = {
-            answers: Answers
-          }
-          quizs.push(Quiz);
-          //holder.innerHTML += '<p>' + JSON.stringify(Quiz) + '</p>';
+            resultsQuizs = shuffle(resultsQuizs);
 
+            var Answers = {
+              results : resultsQuizs,
+              correctAnswer : correctAnswer,
+              imageURL : lineArray[0]
+            }
+
+            var Quiz = {
+              answers: Answers
+            }
+            quizs.push(Quiz);
+          //holder.innerHTML += '<p>' + JSON.stringify(restOfResults) + '</p>';
+          }
         }
 
         var Game = {
           quizs : quizs,
-          level : 1,
+          level : parseInt(document.getElementById('txtLevel').value),
           local : false
         }
 
@@ -146,9 +166,56 @@ function previewfile(file) {
   }*/
 }
 
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex ;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
+
+function generate5Results(correctAnswer){
+  var fiveResultsArray = Array();
+  for(var cont = 1 ; cont <= 6; cont++){
+    if(cont != correctAnswer){
+      var Result = {
+        resultText : namesGame[getRandomInt(0,namesGame.length-1)],
+        resultValue: cont
+      }
+      fiveResultsArray.push(Result);
+    }
+  }
+  return fiveResultsArray;
+
+}
+
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+function generateRandomBetween1and6(){
+        var  n = Math.floor(Math.random() * (6 - 1 + 1)) + min;
+        if(arguments[0] == n || (arguments.length>1 && arguments[1] == n)){
+            if(arguments.length>1){
+                return generateRandomBetween1and6(arguments[0], arguments[1]);
+            }else{
+                return generateRandomBetween1and6(arguments[0]);
+            }
+        }else{
+            return n;
+        }
+    }
 
 function generateJson(){
 
