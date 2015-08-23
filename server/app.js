@@ -26,8 +26,8 @@ console.log('first ' +keyPair);*/
 
 // Database
 
-//mongoose.connect('mongodb://root:inputboxxp@proximus.modulusmongo.net:27017/aton5yHy');
-mongoose.connect('mongodb://127.0.0.1:27017/local');
+mongoose.connect('mongodb://root:inputboxxp@proximus.modulusmongo.net:27017/aton5yHy');
+//mongoose.connect('mongodb://127.0.0.1:27017/local');
 //Base setup
 
 var Game = require('./model/game.js');
@@ -55,8 +55,8 @@ app.use(bodyParser.json());
 //var ipaddr = process.env.OPENSHIFT_NODEJS_IP;
 //var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 9000;
 
-var port = 80
-//var port = 8001;
+//var port = 80
+var port = 8001;
 
 // ROUTES FOR OUR API
 // =============================================================================
